@@ -48,28 +48,31 @@ public class QuizzesServiceImpl implements QuizzesService {
 				MultipleChoiceQuestion actualQuestion = getQuestionFromPool(question.getId());
 
 				logger.info("actualQuestion: " + actualQuestion);
-				/*for (MultipleChoiceQuestionChoice choice : actualQuestion.getChoices()) {
-					if (question.getSelectedAnswer() == choice.getId() && choice.getCorrect()) {
-						numberCorrect++;
-						break;
-					}
-				}*/
-				Optional<MultipleChoiceQuestionChoice> matchedChoice = actualQuestion.getChoices().stream().filter(c -> c.getId() == question.getSelectedAnswer() && c.getCorrect()).findFirst();
-				
+				/*
+				 * for (MultipleChoiceQuestionChoice choice : actualQuestion.getChoices()) { if
+				 * (question.getSelectedAnswer() == choice.getId() && choice.getCorrect()) {
+				 * numberCorrect++; break; } }
+				 */
+				Optional<MultipleChoiceQuestionChoice> matchedChoice = actualQuestion.getChoices().stream()
+						.filter(c -> c.getId() == question.getSelectedAnswer() && c.getCorrect()).findFirst();
+
 				if (matchedChoice.isPresent()) {
 					numberCorrect++;
 				}
-				
+
 			}
 		}
-		
-		// logger.info("QuizzesServiceImpl - evaluteQuiz - numberCorrect: " + numberCorrect);
-		// logger.info("QuizzesServiceImpl - evaluteQuiz - quiz.getQuestions().size(): " + quiz.getQuestions().size());
+
+		// logger.info("QuizzesServiceImpl - evaluteQuiz - numberCorrect: " +
+		// numberCorrect);
+		// logger.info("QuizzesServiceImpl - evaluteQuiz - quiz.getQuestions().size(): "
+		// + quiz.getQuestions().size());
 
 		int percentCorrect = (numberCorrect * 100 * 100) / quiz.getQuestions().size();
-		Optional<Float> correctPercent = Optional.ofNullable((float)percentCorrect / 100);
-		
-		// logger.info("QuizzesServiceImpl - evaluteQuiz - correctPercent: " + correctPercent);
+		Optional<Float> correctPercent = Optional.ofNullable((float) percentCorrect / 100);
+
+		// logger.info("QuizzesServiceImpl - evaluteQuiz - correctPercent: " +
+		// correctPercent);
 		return correctPercent;
 	}
 
@@ -159,8 +162,7 @@ public class QuizzesServiceImpl implements QuizzesService {
 		questionPoolMap.put(mcq1.getId(), mcq1);
 
 		// Q 6
-		mcq1 = new MultipleChoiceQuestion(questionId++,
-				"Which of the following attributes of text box control allow to limit the maximum character?",
+		mcq1 = new MultipleChoiceQuestion(questionId++, "Which of the following attributes of text box control allow to limit the maximum character?",
 				"Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "size", false);
 		mcq1.getChoices().add(mc1);
@@ -175,8 +177,7 @@ public class QuizzesServiceImpl implements QuizzesService {
 		questionPoolMap.put(mcq1.getId(), mcq1);
 
 		// Q 7
-		mcq1 = new MultipleChoiceQuestion(questionId++, "Web pages starts with which of the following tag?",
-				"Select the best answer");
+		mcq1 = new MultipleChoiceQuestion(questionId++, "Web pages starts with which of the following tag?", "Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "<body>", false);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "<title>", false);
@@ -191,8 +192,7 @@ public class QuizzesServiceImpl implements QuizzesService {
 
 		// Q 8
 		mcq1 = new MultipleChoiceQuestion(questionId++, "<a> Tag is", "Select the best answer");
-		mc1 = new MultipleChoiceQuestionChoice(choiceId++,
-				"defines a hyperlink, which is used to link from one page to another.", true);
+		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "defines a hyperlink, which is used to link from one page to another.", true);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "to show images", false);
 		mcq1.getChoices().add(mc2);
@@ -246,10 +246,9 @@ public class QuizzesServiceImpl implements QuizzesService {
 		// add to pool
 		questionPool.add(mcq1);
 		questionPoolMap.put(mcq1.getId(), mcq1);
-		
+
 		// Q 12
-		mcq1 = new MultipleChoiceQuestion(questionId++, "What is the correct HTML element for inserting a line break?",
-				"Select the best answer");
+		mcq1 = new MultipleChoiceQuestion(questionId++, "What is the correct HTML element for inserting a line break?", "Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "<br>", true);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "<b>", false);
@@ -259,10 +258,9 @@ public class QuizzesServiceImpl implements QuizzesService {
 		// add to pool
 		questionPool.add(mcq1);
 		questionPoolMap.put(mcq1.getId(), mcq1);
-		
+
 		// Q 13
-		mcq1 = new MultipleChoiceQuestion(questionId++, "What is the correct HTML for adding a background color?",
-				"Select the best answer");
+		mcq1 = new MultipleChoiceQuestion(questionId++, "What is the correct HTML for adding a background color?", "Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "<background>yellow</background>", false);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "<body style=\"background-color:yellow;\">", true);
@@ -272,10 +270,9 @@ public class QuizzesServiceImpl implements QuizzesService {
 		// add to pool
 		questionPool.add(mcq1);
 		questionPoolMap.put(mcq1.getId(), mcq1);
-		
+
 		// Q14
-		mcq1 = new MultipleChoiceQuestion(questionId++, "Choose the correct HTML element to define emphasized text",
-				"Select the best answer");
+		mcq1 = new MultipleChoiceQuestion(questionId++, "Choose the correct HTML element to define emphasized text", "Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "<i>", false);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "<italic>", false);
@@ -285,10 +282,9 @@ public class QuizzesServiceImpl implements QuizzesService {
 		// add to pool
 		questionPool.add(mcq1);
 		questionPoolMap.put(mcq1.getId(), mcq1);
-		
+
 		// Q15
-		mcq1 = new MultipleChoiceQuestion(questionId++, "Which of these elements are all <table> elements?",
-				"Select the best answer");
+		mcq1 = new MultipleChoiceQuestion(questionId++, "Which of these elements are all <table> elements?", "Select the best answer");
 		mc1 = new MultipleChoiceQuestionChoice(choiceId++, "<table><head><tfoot>", false);
 		mcq1.getChoices().add(mc1);
 		mc2 = new MultipleChoiceQuestionChoice(choiceId++, "<thead><body><tr>", false);
