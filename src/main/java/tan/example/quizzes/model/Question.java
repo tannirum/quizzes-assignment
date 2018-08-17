@@ -1,6 +1,6 @@
 package tan.example.quizzes.model;
 
-public class Question {
+abstract public class Question {
 
 	protected String description;
 

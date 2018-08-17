@@ -47,13 +47,19 @@ public class QuizzesServiceImpl implements QuizzesService {
 			if (question.getSelectedAnswer() > 0) {
 				MultipleChoiceQuestion actualQuestion = getQuestionFromPool(question.getId());
 
-				// logger.info("actualQuestion: " + actualQuestion);
-				for (MultipleChoiceQuestionChoice choice : actualQuestion.getChoices()) {
+				logger.info("actualQuestion: " + actualQuestion);
+				/*for (MultipleChoiceQuestionChoice choice : actualQuestion.getChoices()) {
 					if (question.getSelectedAnswer() == choice.getId() && choice.getCorrect()) {
 						numberCorrect++;
 						break;
 					}
+				}*/
+				Optional<MultipleChoiceQuestionChoice> matchedChoice = actualQuestion.getChoices().stream().filter(c -> c.getId() == question.getSelectedAnswer() && c.getCorrect()).findFirst();
+				
+				if (matchedChoice.isPresent()) {
+					numberCorrect++;
 				}
+				
 			}
 		}
 		
@@ -72,7 +78,7 @@ public class QuizzesServiceImpl implements QuizzesService {
 
 		long quizId = counter.incrementAndGet();
 		Quiz quiz = new Quiz(quizId, "Quiz " + quizId, studentId);
-		quiz.getQuestions().addAll(getQuestionsFromPool(10));
+		quiz.getQuestions().addAll(getQuestionsFromPool(7));
 		return quiz;
 	}
 
