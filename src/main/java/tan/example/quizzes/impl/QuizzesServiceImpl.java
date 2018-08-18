@@ -42,8 +42,29 @@ public class QuizzesServiceImpl implements QuizzesService {
 			return Optional.empty();
 		}
 
-		int numberCorrect = 0;
-		for (MultipleChoiceQuestion question : quiz.getQuestions()) {
+		/*
+		 * int numberCorrect = 0; for (MultipleChoiceQuestion question :
+		 * quiz.getQuestions()) { if (question.getSelectedAnswer() > 0) {
+		 * MultipleChoiceQuestion actualQuestion =
+		 * getQuestionFromPool(question.getId());
+		 * 
+		 * logger.info("actualQuestion: " + actualQuestion); /* for
+		 * (MultipleChoiceQuestionChoice choice : actualQuestion.getChoices()) { if
+		 * (question.getSelectedAnswer() == choice.getId() && choice.getCorrect()) {
+		 * numberCorrect++; break; } }
+		 *
+		 * Optional<MultipleChoiceQuestionChoice> matchedChoice =
+		 * actualQuestion.getChoices().stream() .filter(c -> c.getId() ==
+		 * question.getSelectedAnswer() && c.getCorrect()).findFirst();
+		 * 
+		 * if (matchedChoice.isPresent()) { numberCorrect++; }
+		 * 
+		 * } }
+		 */
+		// https://karims.in/java-8-assigning-variable-inside-lambda-foreach-c73720f1860f.
+		final Integer[] numberCorrect = { 0 };
+
+		quiz.getQuestions().stream().forEach(question -> {
 			if (question.getSelectedAnswer() > 0) {
 				MultipleChoiceQuestion actualQuestion = getQuestionFromPool(question.getId());
 
@@ -57,18 +78,19 @@ public class QuizzesServiceImpl implements QuizzesService {
 						.filter(c -> c.getId() == question.getSelectedAnswer() && c.getCorrect()).findFirst();
 
 				if (matchedChoice.isPresent()) {
-					numberCorrect++;
+					numberCorrect[0]++;
 				}
-
 			}
-		}
+		});
 
 		// logger.info("QuizzesServiceImpl - evaluteQuiz - numberCorrect: " +
 		// numberCorrect);
 		// logger.info("QuizzesServiceImpl - evaluteQuiz - quiz.getQuestions().size(): "
 		// + quiz.getQuestions().size());
 
-		int percentCorrect = (numberCorrect * 100 * 100) / quiz.getQuestions().size();
+		// int percentCorrect = (numberCorrect * 100 * 100) / quiz.getQuestions().size();
+		int percentCorrect = (numberCorrect[0] * 100 * 100) / quiz.getQuestions().size();
+		
 		Optional<Float> correctPercent = Optional.ofNullable((float) percentCorrect / 100);
 
 		// logger.info("QuizzesServiceImpl - evaluteQuiz - correctPercent: " +
