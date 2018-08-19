@@ -61,8 +61,9 @@ public class QuizzesServiceImpl implements QuizzesService {
 		 * 
 		 * } }
 		 */
-		// https://karims.in/java-8-assigning-variable-inside-lambda-foreach-c73720f1860f.
-		final Integer[] numberCorrect = { 0 };
+		// final Integer[] numberCorrect = { 0 };
+		List<Integer> numberCorrect = new ArrayList<Integer>();
+		numberCorrect.add(0);
 
 		quiz.getQuestions().stream().forEach(question -> {
 			if (question.getSelectedAnswer() > 0) {
@@ -78,7 +79,12 @@ public class QuizzesServiceImpl implements QuizzesService {
 						.filter(c -> c.getId() == question.getSelectedAnswer() && c.getCorrect()).findFirst();
 
 				if (matchedChoice.isPresent()) {
-					numberCorrect[0]++;
+					// numberCorrect[0]++;
+					Integer num = numberCorrect.get(0);
+					num++;
+					numberCorrect.clear();
+					numberCorrect.add(num);
+					
 				}
 			}
 		});
@@ -89,7 +95,8 @@ public class QuizzesServiceImpl implements QuizzesService {
 		// + quiz.getQuestions().size());
 
 		// int percentCorrect = (numberCorrect * 100 * 100) / quiz.getQuestions().size();
-		int percentCorrect = (numberCorrect[0] * 100 * 100) / quiz.getQuestions().size();
+		//int percentCorrect = (numberCorrect[0] * 100 * 100) / quiz.getQuestions().size();
+		int percentCorrect = (numberCorrect.get(0) * 100 * 100) / quiz.getQuestions().size();
 		
 		Optional<Float> correctPercent = Optional.ofNullable((float) percentCorrect / 100);
 
