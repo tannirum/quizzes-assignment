@@ -20,7 +20,7 @@ public class QuizController {
 
 	@Autowired
 	protected QuizzesService quizzesService;
-	protected Logger logger = Logger.getLogger("QuizController");
+	protected final static Logger logger = Logger.getLogger("QuizController");
 
 	/**
 	 * API to get quiz
