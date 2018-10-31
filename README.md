@@ -8,14 +8,14 @@ Gradle installed
 
 
 
-**From the root folder**
+**From the root folder:**
 
-To build:
+To build
 ```
   gradle build
 ```
   
-To run:
+To run
 ```
   gradle run
 ```
